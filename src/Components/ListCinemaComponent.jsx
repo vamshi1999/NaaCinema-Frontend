@@ -7,6 +7,7 @@ const ListCinemaComponent = () => {
 
 	const [cinemas,setCinemas] = useState([]);
 	const [cinemaName,setCinemaName] = useState('');
+	const [errMessage, setErrMessage] = useState('');
 	var [count,setCount] = useState(0);
 	const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const ListCinemaComponent = () => {
 			navigate(`/naacinema/cinemas/search-cinema?cinema-name=${cinemaName}`);
 		}else{
 			e.preventDefault();
-			console.log("Enter valid cinema name");
+			setErrMessage("Enter valid cinema name(atleast 2 characters)");
 		}
 	}
 
@@ -59,10 +60,12 @@ const ListCinemaComponent = () => {
 						value = {cinemaName}
 						onChange = {(e) => setCinemaName(e.target.value)}
         			/>
+					
         			<Button variant="outline-primary" onClick = {(e) => searchCinemaByNameHandler(e)} >🔍</Button>
 					<Button variant="outline-secondary" onClick={(e)=>sortCinemaHandler(e)} >⇃↾</Button>
-
       			</InputGroup>
+
+				<p className="text-danger" style={{fontSize:"12px"}}>{errMessage}</p>
 
 
             	<table className="table table-bordered table-striped">
